@@ -22,6 +22,7 @@ sc.setup(800, 800)
 t = turtle.Turtle()
 t.speed('fastest')
 t.ht()
+turtle.tracer(0, 0)
 
 
 # Nazev grafu
@@ -40,10 +41,20 @@ def xline():
 
 # Body na ose x
 def xpoint():
-    t.forward(25 * xln / xpt)
-    t.pendown()
-    t.dot()
-    t.penup()
+    xptnum = 1
+    for x in range(xpt):
+        t.forward(25 * xln / xpt)
+        t.pendown()
+        t.dot()
+        t.penup()
+        t.right(90)
+        t.forward(25)
+        t.write(xptnum, font=("Arial", 10, "normal", ))
+        t.left(180)
+        t.forward(25)
+        t.right(90)
+        xptnum = xptnum + 1
+
 
 # Osa y
 def yline():
@@ -53,7 +64,7 @@ def yline():
     t.forward(5 * yln)
     t.penup()
 
-# Krivky
+# Krivka
 def curve():
     t.setpos(-150, -150)
     curcol = vstup.readline()
@@ -67,14 +78,16 @@ def curve():
         t.setpos(t.xcor() + 25 * xln / xpt, -150 + 5 * cur)
         del curval[0]
     t.penup()
+def curves():
+    for c in range(cur):
+        curve()
     
 # Volani jednotlivych funkci
 title()
 xline()
-for x in range(xpt):
-    xpoint()
+xpoint()
 yline()
-for c in range(cur):
-    curve()
+curves()
+turtle.update()
 turtle.exitonclick()
 
